@@ -1,0 +1,25 @@
+{
+  "name": "note",
+  "version": "0.0.0",
+  "authors": [
+    "camus2 <aikah@free.fr>"
+  ],
+  "description": "note",
+  "main": "note.js",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "note"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
