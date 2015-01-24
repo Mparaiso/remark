@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="remark" foo-manifest="/cache.manifest">
+<html lang="en" ng-app="remark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,10 +65,12 @@
   <!-- DASHBOARD -->
   <script type="text/ng-template" id="templates/dashboard.html">
     <h2>Your notes {{user.nickname}}</h2>
-    <section ng-switch="notes && note.length>0">
+    <section ng-switch="notes.length>0">
       <div ng-switch-when="true">
-        <ul>
-          <li ng-repeat="note in notes">{{note.title}}</li>
+        <ul class="list-unstyled">
+          <li ng-repeat="note in notes">
+            <a ng-href="#/note/{{note.objectId}}">{{note.title}}</a>
+          </li>
         </ul>
       </div>
       <div ng-switch-default>
@@ -78,7 +80,7 @@
   </script>
   <!-- NOTE-NEW -->
   <script type="text/ng-template" id="templates/note-new.html">
-    <form class="form" name="noteForm">
+    <form class="form" name="noteForm" ng-submit="save(note)">
       <fieldset>
         <legend>New note</legend>
         <div class="form-group">
