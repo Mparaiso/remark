@@ -22,16 +22,17 @@ angular.module('remark', ['ui.router'], function (Parse, $urlRouterProvider, $st
                 };
             }
         })
-        .state('/note/:id', {
+        .state('note-read', {
+            url:'/note/:id',
             templateUrl: 'templates/note-read.html',
             resolve: {
-                note: function (Note, $q) {
-                    $q(function (res, rej) {
-
-                    })
+                note: function (Note,$urlParams, $q) {
+                    return Note.getById($urlParams.id)
                 }
             },
-            controller: function () { }
+            controller: function (note) {
+                $scope.note=note;
+            }
         })
         .state('dashboard', {
             url: '/dashboard',
