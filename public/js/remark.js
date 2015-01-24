@@ -10,7 +10,7 @@
             templateUrl: 'templates/home.html'
         })
         .state('note-new', {
-            url: '/note-new',
+            url: '/note/new',
             templateUrl: 'templates/note-new.html',
             controller: function ($scope, Note, $q, $location) {
                 $scope.save = function (note) {

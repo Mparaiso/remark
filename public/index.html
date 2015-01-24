@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="remark">
+<html lang="en" data-ng-app="remark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,8 +41,9 @@
           </li>
           <li><a href="#/sign-in">login</a>
           </li>
-          <li><a href="#/dashboard">dashboard</a>
+          <li><a href="#/dashboard">your notes</a>
           </li>
+            <li> <a href="#/note/new">add a note</a> </li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
@@ -65,18 +66,21 @@
   <!-- DASHBOARD -->
   <script type="text/ng-template" id="templates/dashboard.html">
     <h2>Your notes {{user.nickname}}</h2>
-    <section ng-switch="notes.length>0">
+    <div ng-switch="notes.length>0">
       <div ng-switch-when="true">
         <ul class="list-unstyled">
           <li ng-repeat="note in notes">
-            <a ng-href="#/note/{{note.objectId}}">{{note.title}}</a>
+            
+      <h3><a ng-href="#/note/{{note.objectId}}">{{note.title}}</a></h3>
+      <p>{{note.content|limitTo:50}}</p>
+      
           </li>
         </ul>
       </div>
       <div ng-switch-default>
-        <h3>No note found, <a href="#/note-new">add a note</a>.</h3>
+        <h3>No note found, <a href="#/note/new">add a note</a>.</h3>
       </div>
-    </section>
+    </div>
   </script>
   <!-- NOTE-NEW -->
   <script type="text/ng-template" id="templates/note-new.html">
