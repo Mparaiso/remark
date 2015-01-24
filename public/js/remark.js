@@ -54,6 +54,12 @@ angular.module('remark', ['ui.router'], function (Parse, $urlRouterProvider, $st
 .constant('Parse', Parse)
 .factory('Note', function (Parse) {
     return Parse.Object.extend('Note', {}, {
+        query:function(limit,skip){
+            var self = this;
+            return $q(function (res, rej) {
+                (new Parse.Query(self)).limit(limit).skip(skip).find().then(res, rej);
+            })
+        },
         getById: function (id) {
             var self = this;
             return $q(function (res, rej) {
