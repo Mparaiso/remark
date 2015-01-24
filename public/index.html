@@ -71,10 +71,8 @@
       <div ng-switch-when="true">
         <ul class="list-unstyled">
           <li ng-repeat="note in notes">
-
-            <h3><a ng-href="#/note/{{note.objectId}}">{{note.title}}</a></h3>
+            <h3><a ng-href="#/note/{{note.objectId}}">{{note.title}}</a> <small>{{note.createdAt | date:'M/d/yyyy h:mm a'}}</small></h3>
             <p>{{note.content|limitTo:50}}</p>
-
           </li>
         </ul>
       </div>

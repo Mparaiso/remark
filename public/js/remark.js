@@ -90,7 +90,7 @@
                         limit = limit || 100,
                         skip = skip || 0;
                     return $q(function(res, rej) {
-                        (new Parse.Query(self)).limit(limit).skip(skip).find().then(res, rej);
+                        (new Parse.Query(self)).descending('createdAt').limit(limit).skip(skip).find().then(res, rej);
                     }).then(function(notes) {
                         console.log(notes);
                         return (new Parse.Collection(notes)).toJSON();
