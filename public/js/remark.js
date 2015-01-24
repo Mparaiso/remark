@@ -7,7 +7,10 @@ angular.module('remark', ['ui.router'], function (Parse, $urlRouterProvider, $st
         .state('notes', {
             url: '/notes',
             templateUrl: 'templates/home.html',
-            controller: function () { }
+            resolve: function (Note) {
+                return Note.query();
+            },
+            controller: function (notes) { $scope.notes = notes; }
         })
         .state('note-new', {
             url: '/note/new',
@@ -23,15 +26,15 @@ angular.module('remark', ['ui.router'], function (Parse, $urlRouterProvider, $st
             }
         })
         .state('note-read', {
-            url:'/note/:id',
+            url: '/note/:id',
             templateUrl: 'templates/note-read.html',
             resolve: {
-                note: function (Note,$urlParams, $q) {
+                note: function (Note, $urlParams, $q) {
                     return Note.getById($urlParams.id)
                 }
             },
             controller: function (note) {
-                $scope.note=note;
+                $scope.note = note;
             }
         })
         .state('dashboard', {
@@ -54,8 +57,8 @@ angular.module('remark', ['ui.router'], function (Parse, $urlRouterProvider, $st
 .constant('Parse', Parse)
 .factory('Note', function (Parse) {
     return Parse.Object.extend('Note', {}, {
-        query:function(limit,skip){
-            var self = this;
+        query: function (limit, skip) {
+            var self = this, limit = limit || 100, skip = skip || 0;
             return $q(function (res, rej) {
                 (new Parse.Query(self)).limit(limit).skip(skip).find().then(res, rej);
             })
