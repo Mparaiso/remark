@@ -1,0 +1,31 @@
+body {
+	font-family: "Open Sans", Helvetica, "sans-serif" !important;
+	font-size: 1.5em;
+}
+.sans {
+	font-family: "Open Sans", Helvetica, "sans-serif";
+}
+.small-caps{
+	font-variant: small-caps;
+	font-size: 1.4em;
+}
+.serif {
+	font-family: "Droid Serif", Times, serif;
+}
+.navbar-brand {
+	font-variant: small-caps;
+	font-size: 2.5em !important;
+	font-family: "Bree Serif", Times, serif;
+}
+.center {
+	text-align: center;
+}
+.lead {
+	text-align: justify;
+}
+main{
+	min-height:320px;
+}
+footer{
+	margin-top:50px;
+}

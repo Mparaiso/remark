@@ -1,14 +1,148 @@
 <!doctype html>
-<html lang="en" ng-app="note">
+<html lang="en" ng-app="remark" foo-manifest="/cache.manifest">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="/css/remark.css" type="text/css" />
+  <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/js/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
-  <script src="/js/bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="/js/bower_components/angularjs/angular.min.js"></script>
-  <script src="/js/bower_components/ui-router/release/angular-ui-router.min.js"></script>
-  <script src="/js/note.js"></script>
-  <title>Note</title>
+  <script type="text/javascript" src="/js/vendor/es5-shim.min.js"></script>
+  <script type="text/javascript" src="/js/vendor/es5-sham.min.js"></script>
+  <script type="text/javascript" src="/js/bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/vendor/parse-1.3.3.min.js"></script>
+  <script type="text/javascript" src="/js/vendor/angular.min.js"></script>
+  <script type="text/javascript" src="/js/bower_components/ui-router/release/angular-ui-router.min.js"></script>
+  <script type="text/javascript" src="/js/remark.js"></script>
+  <title>remark</title>
 </head>
+
 <body>
+  <!-- MENU -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#/" class="navbar-brand small-caps">remark</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="menu-collapse">
+        <ul class="nav navbar-nav navbar-right sans small-caps" data-toggle="collapse" data-target="#menu-collapse">
+          <li><a href="#/sign-up">register</a>
+          </li>
+          <li><a href="#/sign-in">login</a>
+          </li>
+          <li><a href="#/dashboard">dashboard</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+  </nav>
+  <main class="container-fluid" ui-view>
+  </main>
+  <footer class="container-fluid">
+    &copy; 2014 MParaiso
+  </footer>
+  <!-- HOMEPAGE -->
+  <script type="text/ng-template" id="templates/home.html">
+    <div class="center-block">
+      <section class="jumbotron serif">
+        <h2>Annotate your life!</h2>
+        <p class="lead">All your notes, ideas, pictures and maps in a single place.</p>
+      </section>
+    </div>
+  </script>
+  <!-- DASHBOARD -->
+  <script type="text/ng-template" id="templates/dashboard.html">
+    <h2>Your notes {{user.nickname}}</h2>
+    <section ng-switch="notes && note.length>0">
+      <div ng-switch-when="true">
+        <ul>
+          <li ng-repeat="note in notes">{{note.title}}</li>
+        </ul>
+      </div>
+      <div ng-switch-default>
+        <h3>No note found, <a href="#/note-new">add a note</a>.</h3>
+      </div>
+    </section>
+  </script>
+  <!-- NOTE-NEW -->
+  <script type="text/ng-template" id="templates/note-new.html">
+    <form class="form" name="noteForm">
+      <fieldset>
+        <legend>New note</legend>
+        <div class="form-group">
+          <label for="">Title</label>
+          <input ng-model="note.title" class="form-control"></input>
+        </div>
+        <div class="form-group">
+          <label for="">Content</label>
+          <textarea ng-model="note.content" rows="7" class="form-control"></textarea>
+        </div>
+        <input type="submit" ng-disabled="noteForm.$invalid || noteForm.$pristine" 
+          class="btn btn-success" value="Save" />
+      </fieldset>
+    </form>
+  </script>
+  <!-- SIGN IN -->
+  <script type="text/ng-template" id="templates/sign-in.html">
+    <form name="signIn" class="col-xs-12 col-md-6" role="form">
+      <fieldset>
+        <legend>Sign In</legend>
+        <p class="text-muted">Login into your account to access your notes!</p>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input ng-model="login.email" class="form-control" type="email" name="email" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input ng-model="login.password" class="form-control" type="password" name="password" />
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="login.rememberMe"> Remember me for a week
+          </label>
+        </div>
+        <input type="submit" class="btn btn-primary btn-lg" value="Sign In" />
+      </fieldset>
+      <hr></hr>
+    </form>
+    <div class="col-xs-12 col-md-6">
+      <h4>No account?</h4>
+      <p>
+        <a href="#/sign-up" class="btn btn-success btn-lg">Register</a>
+      </p>
+    </div>
+
+
+  </script>
+  <!-- SIGN UP -->
+  <script type=" text/ng-template " id="templates/sign-up.html ">
+    <form ng-submit="register(registration)" name="signUp" class="col-xs-12 col-md-6" role="form">
+      <fieldset>
+        <legend>Register</legend>
+        <p class="text-muted ">Create a new account and start adding notes rignt away!</p>
+        <div class="form-group" ng-class="{'has-success':signUp.email.$valid}">
+          <label class="control-label" for="email ">Email</label>
+          <input required ng-model="registration.email " class="form-control " type="email " name="email " />
+        </div>
+        <div class="form-group" ng-class="{'has-success':signUp.password.$valid}">
+          <label class="control-label" for="password ">Password</label>
+          <input required ng-pattern="/\w{6,50}/" ng-model="registration.password " class="form-control " type="password" name="password" />
+        </div>
+        <input type="submit" ng-disabled="signUp.$invalid || signUp.$pristine" class="btn btn-primary btn-lg " value="Done" />
+      </fieldset>
+    </form>
+  </script>
 </body>
 </html>
