@@ -14,6 +14,7 @@
             templateUrl: 'templates/note-new.html',
             controller: function ($scope, Note, $q, $location) {
                 $scope.save = function (note) {
+                    console.log(note,this);
                     var note = new Note({ title: note.title, content: note.content });
                     $q(function (res, rej) { note.save().then(res, rej) })
                     .then(function (note) {

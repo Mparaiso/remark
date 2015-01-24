@@ -95,6 +95,10 @@
           <label for="">Content</label>
           <textarea ng-model="note.content" rows="7" class="form-control"></textarea>
         </div>
+        <div class="form-group">
+      <label>Attachement</label>
+      <input type="file" multiple name="attachement"/>
+      </div>
         <input type="submit" ng-disabled="noteForm.$invalid || noteForm.$pristine" 
           class="btn btn-success" value="Save" />
       </fieldset>
