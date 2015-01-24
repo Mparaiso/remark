@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" data-ng-app="remark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,7 +44,7 @@
           </li>
           <li><a href="#/dashboard">your notes</a>
           </li>
-            <li> <a href="#/note/new">add a note</a> </li>
+          <li> <a href="#/note/new">add a note</a> </li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
@@ -70,10 +71,10 @@
       <div ng-switch-when="true">
         <ul class="list-unstyled">
           <li ng-repeat="note in notes">
-            
-      <h3><a ng-href="#/note/{{note.objectId}}">{{note.title}}</a></h3>
-      <p>{{note.content|limitTo:50}}</p>
-      
+
+            <h3><a ng-href="#/note/{{note.objectId}}">{{note.title}}</a></h3>
+            <p>{{note.content|limitTo:50}}</p>
+
           </li>
         </ul>
       </div>
@@ -96,18 +97,25 @@
           <textarea ng-model="note.content" rows="7" class="form-control"></textarea>
         </div>
         <div class="form-group">
-      <label>Attachement</label>
-      <input type="file" multiple name="attachement"/>
-      </div>
-        <input type="submit" ng-disabled="noteForm.$invalid || noteForm.$pristine" 
-          class="btn btn-success" value="Save" />
+          <label>Attachements</label>
+          <input remark-file ng-model="note.attachments" type="file" name="attachements" />
+        </div>
+        <input type="submit" ng-disabled="noteForm.$invalid || noteForm.$pristine" class="btn btn-success" value="Save" />
       </fieldset>
     </form>
   </script>
   <!-- NOTE READ -->
   <script type="text/ng-template" id="templates/note-read.html">
-      <h3>{{note.title}}</h3>
-      <p>{{note.content}}</p>
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <h3>{{note.title}}</h3>
+        <p>{{note.content}}</p>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <img class="thumbnail" style="width:100%;" ng-src="{{note.attachment.url}}" />
+      </div>
+    </div>
+
   </script>
   <!-- SIGN IN -->
   <script type="text/ng-template" id="templates/sign-in.html">
@@ -160,4 +168,5 @@
     </form>
   </script>
 </body>
+
 </html>
