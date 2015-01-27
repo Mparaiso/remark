@@ -110,7 +110,9 @@
         <p>{{note.content}}</p>
       </div>
       <div class="col-xs-12 col-md-6">
+      <a ng-href="{{note.attachment.url}}" target="_blank">
         <img class="thumbnail" style="width:100%;" ng-src="{{note.attachment.url}}" />
+      </a>
       </div>
     </div>
 
